@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: reactor
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: reactor
+  template:
+    metadata:
+      labels:
+        app: reactor
+    spec:
+      containers:
+        - name: reactor
+          image: yagehu/reactor:v0.1.1
+          ports:
+            - containerPort: 8080
+        - name: kubectl-proxy
+          image: luksa/kubectl-proxy:1.8.0
+        - name: db
+          image: postgres
+          env:
+            - name: POSTGRES_PASSWORD
+              value: reactor
+            - name: POSTGRES_USER
+              value: reactor
+            - name: POSTGRES_DB
+              value: reactor

@@ -1,0 +1,10 @@
+helmDefaults:
+  force: true
+  recreatePods: true
+
+releases:
+  - name: consul
+    namespace: default
+    chart: hashicorp/consul
+    values:
+      - consul.yaml
